@@ -12,27 +12,28 @@ userMAC = input("\nVendor MAC for the devices Ex. HHHH.HH: ")
 userVLAN = input("VLAN would you like the devices to be in: ")
 
 # get switch IP
-userSwitch = input("IP of the switch the devices connect to: ")
+userSwitch = input("IP of the switch the devices connect to: \n")
 
 # username and password
-username = input("\nUsername: ")
-password = getpass()
+
 
 # log into switchIP
 while True:
     try:
+        username = input("Username: ")
+        password = getpass()
         myDevice = {
         'host': userSwitch,
         'username': username,
         'password': password,
         'device_type': 'cisco_ios',
         }
-        print('\nLogging in now...')
+        print("Logging in now...")
         net_connect = Netmiko(**myDevice)
         net_connect.enable()
         break
     except:
-        print('\nLogin failed. Please try again.')
+        print("Login failed. Please try again.\n")
         continue
 
 print("Searching for MAC address...")
