@@ -57,7 +57,10 @@ for intf in interfaces:
         print("\n" +intf)
         print ("Skipping, port is a trunk.")
 
+<<<<<<< HEAD
     # skip if userVLAN is set
+=======
+>>>>>>> 5e36ffc794e9c4fad32671dbba8d2bd670ccb485
     elif userVLAN in output:
         print("\n" +intf)
         print ("Skipping, VLAN is already set.")
@@ -65,6 +68,7 @@ for intf in interfaces:
     else:
         print("\n" +intf)
         print("Modifying, please wait...")
+<<<<<<< HEAD
 
         # issue commands
         config_commands = [
@@ -78,6 +82,12 @@ for intf in interfaces:
 
 # write mem
 print ("\nWriting to memory, please wait...")
+=======
+        config_commands = ['int '+intf, 'shut', 'swi acc vlan '+userVLAN, 'no shut']
+        net_connect.send_config_set(config_commands)
+        print("Done!")
+
+>>>>>>> 5e36ffc794e9c4fad32671dbba8d2bd670ccb485
 net_connect.send_command('write mem')
 
 print ("\nVLAN changes completed! Exiting Program...")
