@@ -1,4 +1,4 @@
-# Require Python 3 and Netmiko
+# Requires Python 3 and Netmiko
 
 # imports
 from netmiko import Netmiko
@@ -48,11 +48,7 @@ for line in showMAC.splitlines():
 print("Found these interfaces:")
 print(interfaces)
 
-<<<<<<< HEAD
 # starts a loop to iterate
-=======
-starts a loop to iterate
->>>>>>> ea21bb236ce141c25dba7c7b7eeca5f12ceeb8eb
 for intf in interfaces:
         output = net_connect.send_command("sh int "+intf+" status");
 
