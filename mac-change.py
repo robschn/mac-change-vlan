@@ -74,6 +74,6 @@ for intf in interfaces:
 print("\nWriting to memory, please wait...")
 net_connect.send_command('write mem')
 
+# exit program
 print("\nVLAN changes completed! Exiting Program...")
-
 exit()
