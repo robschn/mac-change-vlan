@@ -3,7 +3,6 @@
 # imports
 from netmiko import Netmiko
 from getpass import getpass
-import string
 
 # ask for MAC. HHHH.HH format
 userMAC = input("\nVendor MAC for the devices. Must be HHHH.HH format: ")
@@ -30,7 +29,7 @@ while True:
         net_connect.enable()
         break
     except:
-        print("\nLogin failed. Please try again.")
+        print("Login failed. Please try again.")
         continue
 
 print("Searching for MAC addresses...")
