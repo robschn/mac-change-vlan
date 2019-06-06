@@ -5,22 +5,19 @@ from netmiko import Netmiko
 from getpass import getpass
 import string
 
-# ask user for a vendor mac address HHHH.HH
-userMAC = input("\nVendor MAC for the devices Ex. HHHH.HH: ")
+# ask for MAC. HHHH.HH format
+userMAC = input("\nVendor MAC for the devices. Must be HHHH.HH format: ")
 
-# ask what VLAN the MAC should be in
+# ask for VLAN
 userVLAN = input("VLAN would you like the devices to be in: ")
 
-# get switch IP
-userSwitch = input("IP of the switch the devices connect to: \n")
-
-# username and password
-
+# ask for switch IP
+userSwitch = input("IP of the switch the devices connect to: ")
 
 # log into switchIP
 while True:
     try:
-        username = input("Username: ")
+        username = input("\nUsername: ")
         password = getpass()
         myDevice = {
         'host': userSwitch,
@@ -28,12 +25,12 @@ while True:
         'password': password,
         'device_type': 'cisco_ios',
         }
-        print("Logging in now...")
+        print("\nLogging in now...")
         net_connect = Netmiko(**myDevice)
         net_connect.enable()
         break
     except:
-        print("Login failed. Please try again.\n")
+        print("\nLogin failed. Please try again.")
         continue
 
 print("Searching for MAC address...")
@@ -48,9 +45,8 @@ for line in showMAC.splitlines():
     interfaces.append(line[38:47].strip())
     vlanNumber.append(line[2:4].strip())
 
-print("\nFound these interfaces:")
+print("Found these interfaces:")
 print(interfaces)
-print(vlanNumber)
 
 # starts a loop to iterate
 for intf, vlanf in zip(interfaces,vlanNumber):
