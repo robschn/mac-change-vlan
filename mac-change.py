@@ -6,23 +6,23 @@ from getpass import getpass
 import string
 
 # ask user for a vendor mac address HHHH.HH
-userMAC = input("\nVendor MAC for the devices Ex. HHHH.HH: ")
+userMAC = input ("\nVendor MAC for the devices Ex. HHHH.HH: ")
 
 # ask what VLAN the MAC should be in
-userVLAN = input("VLAN would you like the devices to be in: ")
+userVLAN = input ("VLAN would you like the devices to be in: ")
 
 # get switch IP
-userSwitch = input("IP of the switch the devices connect to: ")
+userSwitch = input ("IP of the switch the devices connect to: ")
 
 # username and password
-username = input("\nUsername: ")
+username = input ("\nUsername: ")
 password = getpass()
 
 # log into switchIP
 while True:
     try:
         myDevice = {
-        'host': deviceName,
+        'host': userSwitch,
         'username': username,
         'password': password,
         'device_type': 'cisco_ios',
@@ -35,9 +35,20 @@ while True:
         print ('\nLogin failed. Please try again.')
         continue
 
-# run sh mac add | inc userMAC
+print ("Searching for MAC address...")
 
-# loop through list
+# run sh mac add | inc userMAC
+showMAC = net_connect.send_command("show mac add | inc "+userMAC)
+
+# grabs interfaces
+interfaces = [];
+for line in showMAC.splitlines():
+    interfaces.append(line[38:47].strip())
+
+print ("Found:")
+print (interfaces)
+
+
 
 # if trunk in output of sh int intMAC status
 
