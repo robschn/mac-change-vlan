@@ -33,7 +33,7 @@ while True:
         print("\nLogin failed. Please try again.")
         continue
 
-print("Searching for MAC address...")
+print("Searching for MAC addresses...")
 
 # run sh mac add | inc userMAC
 showMAC = net_connect.send_command("show mac add | inc "+userMAC)
