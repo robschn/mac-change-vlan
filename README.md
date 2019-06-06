@@ -22,6 +22,32 @@ Found these interfaces:
 ['Gi1/0/3', 'Gi1/0/5', 'Gi1/0/9', 'Gi1/0/11', 'Gi1/0/12', 'Gi1/0/20']
 ```
 
+It will then check against two conditons.
 
+Interface is a trunk:
+```
+Gi1/0/3
+Skipping, port is a trunk.
+```
+Device is already in your specified VLAN:
+```
+Gi1/0/5
+Skipping, VLAN is already set.
+```
+If none of those conditions match, it will change the VLAN:
+```
+Gi1/0/9
+Modifying, please wait...
+Done!
+```
+After the interfaces are done, it will write memory and exit:
+```
+Writing to memory, please wait...
 
+VLAN changes completed! Exiting Program...
+```
 
+### Requirements
+- Python 3
+
+- Netmiko
