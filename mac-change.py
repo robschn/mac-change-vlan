@@ -44,7 +44,7 @@ for line in showMAC.splitlines():
         if line[2:4] != userVLAN:
             interfaces.append(line[38:47].strip())
 
-print("Found these interfaces:")
+print("\nFound these interfaces:")
 print(interfaces)
 
 # starts a loop to iterate
