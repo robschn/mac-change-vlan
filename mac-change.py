@@ -40,27 +40,22 @@ showMAC = net_connect.send_command("show mac add | inc "+userMAC)
 
 # grabs interfaces
 interfaces = [];
-vlanNumber = [];
 for line in showMAC.splitlines():
-    interfaces.append(line[38:47].strip())
-    vlanNumber.append(line[2:4].strip())
+        #only grabs interfaces that are not equal to userVLAN
+        if line[2:4] != userVLAN:
+            interfaces.append(line[38:47].strip())
 
 print("Found these interfaces:")
 print(interfaces)
 
 # starts a loop to iterate
-for intf, vlanf in zip(interfaces,vlanNumber):
+for intf in interfaces:
         output = net_connect.send_command("sh int "+intf+" status");
 
         # skip if trunk
         if "trunk" in output:
             print("\n" +intf)
             print("Skipping, port is a trunk.")
-
-        # skip if userVLAN is set
-        elif vlanf == userVLAN:
-            print("\n" +intf)
-            print("Skipping, VLAN is already set.")
 
         else:
             print("\n" +intf)
