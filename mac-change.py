@@ -4,7 +4,7 @@
 from netmiko import Netmiko
 from getpass import getpass
 
-# ask for MAC. HHHH.HH format
+# ask for MAC in HHHH.HH format
 userMAC = input("\nVendor MAC for the devices. Must be HHHH.HH format: ")
 
 # ask for VLAN
