@@ -6,16 +6,16 @@ from getpass import getpass
 import string
 
 # ask user for a vendor mac address HHHH.HH
-userMAC = input ("\nVendor MAC for the devices Ex. HHHH.HH: ")
+userMAC = input("\nVendor MAC for the devices Ex. HHHH.HH: ")
 
 # ask what VLAN the MAC should be in
-userVLAN = input ("VLAN would you like the devices to be in: ")
+userVLAN = input("VLAN would you like the devices to be in: ")
 
 # get switch IP
-userSwitch = input ("IP of the switch the devices connect to: ")
+userSwitch = input("IP of the switch the devices connect to: ")
 
 # username and password
-username = input ("\nUsername: ")
+username = input("\nUsername: ")
 password = getpass()
 
 # log into switchIP
@@ -27,59 +27,62 @@ while True:
         'password': password,
         'device_type': 'cisco_ios',
         }
-        print ('\nLogging in now...')
+        print('\nLogging in now...')
         net_connect = Netmiko(**myDevice)
         net_connect.enable()
         break
     except:
-        print ('\nLogin failed. Please try again.')
+        print('\nLogin failed. Please try again.')
         continue
 
-print ("Searching for MAC address...")
+print("Searching for MAC address...")
 
 # run sh mac add | inc userMAC
 showMAC = net_connect.send_command("show mac add | inc "+userMAC)
 
 # grabs interfaces
 interfaces = [];
+vlanNumber = [];
 for line in showMAC.splitlines():
     interfaces.append(line[38:47].strip())
+    vlanNumber.append(line[2:4].strip())
 
-print ("\nFound:")
-print (interfaces)
+print("\nFound these interfaces:")
+print(interfaces)
+print(vlanNumber)
 
-# starts a loop
-for intf in interfaces:
-    output = net_connect.send_command("sh int "+intf+" status");
+# starts a loop to iterate
+for intf, vlanf in zip(interfaces,vlanNumber):
+        output = net_connect.send_command("sh int "+intf+" status");
 
-    # skip if trunk
-    if "trunk" in output:
-        print("\n" +intf)
-        print ("Skipping, port is a trunk.")
+        # skip if trunk
+        if "trunk" in output:
+            print("\n" +intf)
+            print("Skipping, port is a trunk.")
 
-    # skip if userVLAN is set
-    elif userVLAN in output:
-        print("\n" +intf)
-        print ("Skipping, VLAN is already set.")
+        # skip if userVLAN is set
+        elif vlanf == userVLAN:
+            print("\n" +intf)
+            print("Skipping, VLAN is already set.")
 
-    else:
-        print("\n" +intf)
-        print("Modifying, please wait...")
+        else:
+            print("\n" +intf)
+            print("Modifying, please wait...")
 
-        # issue commands
-        config_commands = [
-        'int '+intf,
-        'shut',
-        'swi acc vlan '+userVLAN,
-        'no shut']
+            # issue commands
+            config_commands = [
+            'int '+intf,
+            'shut',
+            'swi acc vlan '+userVLAN,
+            'no shut']
 
-        net_connect.send_config_set(config_commands)
-        print("Done!")
+            net_connect.send_config_set(config_commands)
+            print("Done!")
 
 # write mem
-print ("\nWriting to memory, please wait...")
+print("\nWriting to memory, please wait...")
 net_connect.send_command('write mem')
 
-print ("\nVLAN changes completed! Exiting Program...")
+print("\nVLAN changes completed! Exiting Program...")
 
 exit()
