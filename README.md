@@ -19,7 +19,7 @@ Logging in now...
 Searching for MAC address...
 
 Found these interfaces:
-['Gi1/0/3', 'Gi1/0/5', 'Gi1/0/9', 'Gi1/0/11', 'Gi1/0/12', 'Gi1/0/20']
+['Gi1/0/3', 'Gi1/0/5', 'Gi1/0/9', 'Gi1/0/11', 'Gi1/0/12']
 ```
 
 It will then check against two conditons.
@@ -37,6 +37,14 @@ Skipping, VLAN is already set.
 If none of those conditions match, it will change the VLAN:
 ```
 Gi1/0/9
+Modifying, please wait...
+Done!
+
+Gi1/0/11
+Modifying, please wait...
+Done!
+
+Gi1/0/12
 Modifying, please wait...
 Done!
 ```
