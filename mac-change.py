@@ -45,32 +45,41 @@ interfaces = [];
 for line in showMAC.splitlines():
     interfaces.append(line[38:47].strip())
 
-print ("Found:")
+print ("\nFound:")
 print (interfaces)
 
+# starts a loop
 for intf in interfaces:
-    print("Modifying:");
-    print(intf);
+    output = net_connect.send_command("sh int "+intf+" status");
 
-    output = net_connect.send_command("sh int " +intf+ " status");
-
+    # skip if trunk
     if "trunk" in output:
-        print ("trunk")
+        print("\n" +intf)
+        print ("Skipping, port is a trunk.")
+
+    # skip if userVLAN is set
+    elif userVLAN in output:
+        print("\n" +intf)
+        print ("Skipping, VLAN is already set.")
 
     else:
-        print ("not trunk")
+        print("\n" +intf)
+        print("Modifying, please wait...")
 
+        # issue commands
+        config_commands = [
+        'int '+intf,
+        'shut',
+        'swi acc vlan '+userVLAN,
+        'no shut']
 
-# if trunk in output of sh int intMAC status
+        net_connect.send_config_set(config_commands)
+        print("Done!")
 
-    # skip
+# write mem
+print ("\nWriting to memory, please wait...")
+net_connect.send_command('write mem')
 
-# else change VLAN to userVLAN
-
-    # shut
-    # swi acc vlan userVLAN
-    # no shut
-
-# wr mem after
+print ("\nVLAN changes completed! Exiting Program...")
 
 exit()
