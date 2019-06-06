@@ -48,6 +48,17 @@ for line in showMAC.splitlines():
 print ("Found:")
 print (interfaces)
 
+for intf in interfaces:
+    print("Modifying:");
+    print(intf);
+
+    output = net_connect.send_command("sh int " +intf+ " status");
+
+    if "trunk" in output:
+        print ("trunk")
+
+    else:
+        print ("not trunk")
 
 
 # if trunk in output of sh int intMAC status
