@@ -10,7 +10,7 @@ Vendor MAC for the devices. Must be HHHH.HH format: 0000.0c
 VLAN would you like the devices to be in: 10
 IP of the switch the devices connect to: 192.168.1.1
 ```
-The script will have you log in, then only grab the interfaces that are not in the specified VLAN.
+Once you log in, the script will run a search for devices containing the vendor MAC. If a device is already in the VLAN you specified, it will not be added to the list.
 ```
 Username: cisco
 Password: 
@@ -21,14 +21,14 @@ Searching for MAC address...
 Found these interfaces:
 ['Gi1/0/3', 'Gi1/0/5', 'Gi1/0/9', 'Gi1/0/11']
 ```
+If the interface is a trunk:
 
-It will then check to see if the interface is a trunk:
 ```
 Gi1/0/3
 Skipping, port is a trunk.
 ```
 
-If no trunk, it will change the VLAN:
+Else:
 ```
 Gi1/0/5
 Modifying, please wait...
