@@ -1,3 +1,5 @@
+ #!/usr/bin/env python3
+
 # Requires Python 3 and Netmiko
 
 # imports
