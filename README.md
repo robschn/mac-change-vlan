@@ -1,7 +1,7 @@
 # mac-change-vlan
 This script will allow you to change VLANs based on the vendor MAC address.
 
-## Usage
+### Usage
 1. Enter the vendor MAC of the devices. This is the first 6 of a MAC address and must be in Cisco format, HHHH.HH.
 2. Enter what VLAN you want all the devices to be in.
 3. Enter the IP of the switch the devices are connected to.
@@ -49,7 +49,7 @@ Writing to memory, please wait...
 VLAN changes completed! Exiting program...
 ```
 
-## Requirements
+### Requirements
 - Python 3
 
 - Netmiko
