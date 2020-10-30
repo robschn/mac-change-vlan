@@ -5,7 +5,7 @@ This script will allow you to change VLANs based on the vendor MAC address.
 1. `git clone https://github.com/robschn/mac-change-vlan/`
 2. `cd mac-change-vlan/`
 3. `python -m venv ven`
-4. `source ven/bin/activate
+4. `source ven/bin/activate`
 5. `pip install requirements.txt`
 
 ### Usage
