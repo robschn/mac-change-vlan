@@ -10,7 +10,7 @@ pycparser==2.20
 PyNaCl==1.4.0  
 pyserial==3.4    
 scp==0.13.3 
-setuptools==40.8.0 
+setuptools==65.5.1 
 six==1.15.0 
 tenacity==6.2.0  
 textfsm==1.1.0  
