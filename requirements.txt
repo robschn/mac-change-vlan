@@ -1,6 +1,6 @@
 bcrypt==3.2.0  
 cffi==1.14.3 
-cryptography==3.3.2  
+cryptography==39.0.1  
 future==0.18.2 
 netmiko==3.3.2  
 ntc-templates==1.6.0  
